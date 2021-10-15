@@ -1,8 +1,8 @@
 # Проект Finder [<img alt="Logo" src="images/logo.png" height="80" align="right"/>](https://www.vectorlogo.zone)
 > Учебный проект поиска файлов..
 
-[![Build Status](https://app.travis-ci.com/ViktorJava/Finder.svg?branch=main)](https://app.travis-ci.com/ViktorJava/Finder)
-[![codecov](https://codecov.io/gh/ViktorJava/Finder/branch/main/graph/badge.svg?token=tt2knqhxMN)](https://codecov.io/gh/ViktorJava/Finder)
+[![Build Status](https://app.travis-ci.com/ViktorJava/Finder.svg?branch=master)](https://app.travis-ci.com/ViktorJava/Finder)
+[![codecov](https://codecov.io/gh/ViktorJava/Finder/branch/master/graph/badge.svg?token=tt2knqhxMN)](https://codecov.io/gh/ViktorJava/Finder)
 
 ## Технологии и инструменты:
 <p align="center">
