@@ -11,7 +11,7 @@ import java.util.function.Predicate;
 import static java.nio.file.FileVisitResult.CONTINUE;
 
 /**
- * TODO Add Javadoc
+ * Ядро поиска файлов.
  *
  * @author ViktorJava (gipsyscrew@gmail.com)
  * @version 0.1
@@ -21,7 +21,11 @@ public class Search extends SimpleFileVisitor<Path> {
     List<Path> paths;
     Predicate<Path> condition;
 
-    //TODO Add Javadoc
+    /**
+     * Конструктор принимает на вход условия поиска файлов и создаёт хранилище.
+     *
+     * @param condition Условия поиска файлов.
+     */
     public Search(Predicate<Path> condition) {
         this.condition = condition;
         this.paths = new ArrayList<>();
@@ -42,6 +46,11 @@ public class Search extends SimpleFileVisitor<Path> {
         return CONTINUE;
     }
 
+    /**
+     * Метод возвращает хранилище разысканных файлов.
+     *
+     * @return Список найденных файлов.
+     */
     public List<Path> getPaths() {
         return paths;
     }

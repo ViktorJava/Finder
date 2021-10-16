@@ -45,7 +45,7 @@ public class Condition {
      */
     private Predicate<Path> getMask(String name) {
         int i = name.indexOf("*");
-        if ((i == -1) || i != name.lastIndexOf("*")) { //whenWrongMask
+        if ((i == -1) || i != name.lastIndexOf("*")) {
             throw new IllegalArgumentException("ошибка маски");
         }
         String left = name.substring(0, i);

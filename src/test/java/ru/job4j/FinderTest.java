@@ -79,6 +79,24 @@ public class FinderTest {
     }
 
     /**
+     * Search type: name
+     *
+     * @throws IOException Possible Exception.
+     */
+    @Test
+    public void whenFileName() throws IOException {
+        File tempFile = folder.newFile("dummyFileFirst.xml");
+        folder.newFile("dummyFileSecond.xml");
+        Path path = Paths.get(String.valueOf(folder.getRoot()));
+        Predicate<Path> condition = new Condition().getPredicate("dummyFileFirst.xml", "name");
+        List<Path> result = Finder.search(path, condition);
+        List<Path> expected = List.of(
+                Paths.get(tempFile.getAbsolutePath())
+        );
+        assertEquals(expected, result);
+    }
+
+    /**
      * WrongArgument: marsk
      */
     @Test(expected = IllegalArgumentException.class)
