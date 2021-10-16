@@ -27,7 +27,6 @@ import java.util.function.Predicate;
  * @since 14.04.2021
  */
 public class Finder {
-    //TODO Add Javadoc
     public static void main(String... args) {
         try {
             ArgsParser argsParser = ArgsParser.of(args);
@@ -42,14 +41,28 @@ public class Finder {
         }
     }
 
+    /**
+     * Метод обходит папки в поисках файлов согласно предиката.
+     *
+     * @param root      Папка поиска файлов.
+     * @param condition Предикат поиска.
+     * @return Список каталогов с результатами.
+     * @throws IOException Возможное исключение.
+     */
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
         Search searcher = new Search(condition);
         Files.walkFileTree(root, searcher);
         return searcher.getPaths();
     }
 
-    private static void writer(String o, List<Path> paths) {
-        try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(o)))) {
+    /**
+     * Метод записывает в файл, результаты поиска файлов.
+     *
+     * @param output Имя файла с результатами.
+     * @param paths  Список результатов.
+     */
+    private static void writer(String output, List<Path> paths) {
+        try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(output)))) {
             for (Path p: paths) {
                 pw.print(p + "\n");
             }

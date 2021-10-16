@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
- * TODO Add Javadoc
+ * Класс условий.
  *
  * @author ViktorJava (gipsyscrew@gmail.com)
  * @version 0.1
@@ -25,29 +25,47 @@ public class Condition {
         }
     }
 
-    //TODO Add implementation
+    /**
+     * TODO Реализовать метод.
+     * Метод возвращает предикат, при типе поиска, по регулярному выражению.
+     * Не реализовано.
+     *
+     * @param name Имя файла поиска.
+     * @return Предикат поиска файла по регулярному выражению.
+     */
     private Predicate<Path> getRegex(String name) {
         return Objects::isNull;
     }
 
-    //TODO Add Javadoc
+    /**
+     * Метод возвращает предикат, при типе поиска по маске.
+     *
+     * @param name Имя файла поиска.
+     * @return Предикат поиска файла по маске.
+     */
     private Predicate<Path> getMask(String name) {
         int i = name.indexOf("*");
-        if (i == -1) {
+        if ((i == -1) || i != name.lastIndexOf("*")) { //whenWrongMask
             throw new IllegalArgumentException("ошибка маски");
         }
         String left = name.substring(0, i);
         String right = name.substring(i + 1);
         if (i == 0) {
             return path -> path.toFile().getName().endsWith(right);
-        } else if (i == name.length() - 1) {
+        }
+        if (i == name.length() - 1) {
             return path -> path.toFile().getName().startsWith(left);
         }
-
         return path -> path.toFile().getName().startsWith(left)
                 && path.toFile().getName().endsWith(right);
     }
 
+    /**
+     * Метод возвращает предикат, при типе поиска, по имени файла.
+     *
+     * @param name Имя файла поиска.
+     * @return Предикат поиска файла по имени.
+     */
     private Predicate<Path> getName(String name) {
         return n -> n.toFile().getName().equals(name);
     }
