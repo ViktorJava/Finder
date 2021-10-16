@@ -1,9 +1,9 @@
 package ru.job4j;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,21 +27,18 @@ import java.util.function.Predicate;
  * @since 14.04.2021
  */
 public class Finder {
-    private static final Logger LOG = LoggerFactory.getLogger(Finder.class.getName());
-
+    //TODO Add Javadoc
     public static void main(String... args) {
         try {
             ArgsParser argsParser = ArgsParser.of(args);
             Path path = Paths.get(argsParser.get("d"));
-            System.out.println(path);
-            Predicate<Path> condition = getPredicate(
+            Predicate<Path> condition = new Condition().getPredicate(
                     argsParser.get("n"),
                     argsParser.get("t"));
             List<Path> result = search(Paths.get(argsParser.get("d")), condition);
-            System.out.println(result);
             writer(argsParser.get("o"), result);
         } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 
@@ -51,21 +48,15 @@ public class Finder {
         return searcher.getPaths();
     }
 
-    public static Predicate<Path> getPredicate(String name, String type) {
-        if (type.equals("name")) {
-            return path -> path.toFile().getName().equals(name);
-        }
-        return null;
-    }
-
     private static void writer(String o, List<Path> paths) {
         try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(o)))) {
             for (Path p: paths) {
                 pw.print(p + "\n");
             }
+            pw.print("Amount: " + paths.size());
+            System.out.println("Done.");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
-

@@ -11,6 +11,8 @@ import java.util.function.Predicate;
 import static java.nio.file.FileVisitResult.CONTINUE;
 
 /**
+ * TODO Add Javadoc
+ *
  * @author ViktorJava (gipsyscrew@gmail.com)
  * @version 0.1
  * @since 25.04.2021
@@ -19,6 +21,7 @@ public class Search extends SimpleFileVisitor<Path> {
     List<Path> paths;
     Predicate<Path> condition;
 
+    //TODO Add Javadoc
     public Search(Predicate<Path> condition) {
         this.condition = condition;
         this.paths = new ArrayList<>();
