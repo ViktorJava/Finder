@@ -1,5 +1,6 @@
 package ru.job4j;
 
+import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
@@ -32,7 +33,7 @@ public class Search extends SimpleFileVisitor<Path> {
     }
 
     /**
-     * Здесь мы и описываем что нужно делать с каждым файлом в каждой директории.
+     * Описание поведения при посещении файла.
      *
      * @param file  Ссылка на файл.
      * @param attrs Основные атрибуты просматриваемого файла.
@@ -43,6 +44,19 @@ public class Search extends SimpleFileVisitor<Path> {
         if (condition.test(file)) {
             paths.add(file);
         }
+        return CONTINUE;
+    }
+
+    /**
+     * Описание поведения при отсутствии доступа к файлу.
+     *
+     * @param file Ссылка на файл.
+     * @param exc  Исключения доступа к файлу.
+     * @return Продолжаем обход дерева CONTINUE.
+     */
+    @Override
+    public FileVisitResult visitFileFailed(Path file, IOException exc) {
+        System.out.printf("Skipped: %s%n", file);
         return CONTINUE;
     }
 

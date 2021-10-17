@@ -21,6 +21,8 @@ import static org.junit.Assert.assertEquals;
  * @since 10/16/2021
  */
 public class FinderTest {
+    Finder finder = new Finder();
+
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
@@ -34,8 +36,9 @@ public class FinderTest {
         File tempFile = folder.newFile("dummyFileFirst.xml");
         folder.newFile("dummyFileSecond.xml");
         Path path = Paths.get(String.valueOf(folder.getRoot()));
-        Predicate<Path> condition = new Condition().getPredicate("*First.xml", "mask");
-        List<Path> result = Finder.search(path, condition);
+        Predicate<Path> condition = new Condition()
+                .getPredicate("*First.xml", "mask");
+        List<Path> result = finder.search(path, condition);
         List<Path> expected = List.of(
                 Paths.get(tempFile.getAbsolutePath())
         );
@@ -52,8 +55,9 @@ public class FinderTest {
         File tempFile = folder.newFile("dummyFileFirst.xml");
         folder.newFile("dummyFileSecond.xml");
         Path path = Paths.get(String.valueOf(folder.getRoot()));
-        Predicate<Path> condition = new Condition().getPredicate("dummyFileF*.xml", "mask");
-        List<Path> result = Finder.search(path, condition);
+        Predicate<Path> condition = new Condition()
+                .getPredicate("dummyFileF*.xml", "mask");
+        List<Path> result = finder.search(path, condition);
         List<Path> expected = List.of(
                 Paths.get(tempFile.getAbsolutePath())
         );
@@ -70,8 +74,9 @@ public class FinderTest {
         File tempFile = folder.newFile("dummyFileFirst.xml");
         folder.newFile("dummyFileSecond.xml");
         Path path = Paths.get(String.valueOf(folder.getRoot()));
-        Predicate<Path> condition = new Condition().getPredicate("dummyFileFirst.*", "mask");
-        List<Path> result = Finder.search(path, condition);
+        Predicate<Path> condition = new Condition()
+                .getPredicate("dummyFileFirst.*", "mask");
+        List<Path> result = finder.search(path, condition);
         List<Path> expected = List.of(
                 Paths.get(tempFile.getAbsolutePath())
         );
@@ -88,8 +93,9 @@ public class FinderTest {
         File tempFile = folder.newFile("dummyFileFirst.xml");
         folder.newFile("dummyFileSecond.xml");
         Path path = Paths.get(String.valueOf(folder.getRoot()));
-        Predicate<Path> condition = new Condition().getPredicate("dummyFileFirst.xml", "name");
-        List<Path> result = Finder.search(path, condition);
+        Predicate<Path> condition = new Condition()
+                .getPredicate("dummyFileFirst.xml", "name");
+        List<Path> result = finder.search(path, condition);
         List<Path> expected = List.of(
                 Paths.get(tempFile.getAbsolutePath())
         );

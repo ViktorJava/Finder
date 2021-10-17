@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -29,13 +30,13 @@ import java.util.function.Predicate;
 public class Finder {
     public static void main(String... args) {
         try {
+            Finder finder = new Finder();
             ArgsParser argsParser = ArgsParser.of(args);
-            Path path = Paths.get(argsParser.get("d"));
             Predicate<Path> condition = new Condition().getPredicate(
                     argsParser.get("n"),
                     argsParser.get("t"));
-            List<Path> result = search(Paths.get(argsParser.get("d")), condition);
-            writer(argsParser.get("o"), result);
+            List<Path> result = finder.search(Paths.get(argsParser.get("d")), condition);
+            finder.writer(argsParser.get("o"), result);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,7 +50,7 @@ public class Finder {
      * @return Список каталогов с результатами.
      * @throws IOException Возможное исключение.
      */
-    public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
+    public List<Path> search(Path root, Predicate<Path> condition) throws IOException {
         Search searcher = new Search(condition);
         Files.walkFileTree(root, searcher);
         return searcher.getPaths();
@@ -61,13 +62,14 @@ public class Finder {
      * @param output Имя файла с результатами.
      * @param paths  Список результатов.
      */
-    private static void writer(String output, List<Path> paths) {
-        try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(output)))) {
+    private void writer(String output, List<Path> paths) {
+        try (PrintWriter pw = new PrintWriter(new BufferedWriter(
+                new FileWriter(output, Charset.forName("WINDOWS-1251"))))) {
             for (Path p: paths) {
-                pw.print(p + "\n");
+                pw.print(p + System.getProperty("line.separator"));
             }
             pw.print("Amount: " + paths.size());
-            System.out.println("Done.");
+            System.out.printf("Done. Amount: %d files", paths.size());
         } catch (IOException e) {
             e.printStackTrace();
         }

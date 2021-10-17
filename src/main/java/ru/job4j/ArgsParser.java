@@ -51,6 +51,9 @@ public class ArgsParser {
      * @return Объект типа ArgsParser с распарсенными параметрами.
      */
     public static ArgsParser of(String[] args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("список аргументов пуст");
+        }
         ArgsParser names = new ArgsParser();
         names.parse(args);
         return names;
