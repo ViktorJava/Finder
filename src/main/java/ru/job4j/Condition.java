@@ -2,12 +2,14 @@ package ru.job4j;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Класс условий.
  *
  * @author ViktorJava (gipsyscrew@gmail.com)
- * @version 0.1
+ * @version 0.2
  * @since 10/16/2021
  */
 public class Condition {
@@ -25,15 +27,20 @@ public class Condition {
     }
 
     /**
-     * TODO Реализовать метод.
      * Метод возвращает предикат, при типе поиска, по регулярному выражению.
-     * Не реализовано.
+     * Например: -n=\d.java
+     * В поиск войдут все файлы в имени которых присутствуют цифры
+     * и с расширением java.
      *
      * @param name Имя файла поиска.
      * @return Предикат поиска файла по регулярному выражению.
      */
     private Predicate<Path> getRegex(String name) {
-        throw new IllegalArgumentException("REGEX NOT IMPLEMENTED");
+        return p -> {
+            Pattern pat = Pattern.compile(name);
+            Matcher mat = pat.matcher(p.toFile().getName());
+            return mat.find();
+        };
     }
 
     /**

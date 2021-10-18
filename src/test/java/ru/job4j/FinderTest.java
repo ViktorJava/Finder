@@ -122,6 +122,23 @@ public class FinderTest {
     }
 
     /**
+     * Use regex
+     */
+    @Test
+    public void whenUseRegex() throws IOException {
+        File tempFile = folder.newFile("GCTypeDemo2.java");
+        folder.newFile("Task.java");
+        Path path = Paths.get(String.valueOf(folder.getRoot()));
+        Predicate<Path> condition = new Condition()
+                .getPredicate("\\d.java", "regex");
+        List<Path> result = finder.search(path, condition);
+        List<Path> expected = List.of(
+                Paths.get(tempFile.getAbsolutePath())
+        );
+        assertEquals(expected, result);
+    }
+
+    /**
      * WrongArgument: marsk
      */
     @Test(expected = IllegalArgumentException.class)
@@ -145,13 +162,4 @@ public class FinderTest {
     public void whenNotfoundMask() {
         new Condition().getPredicate("README.md", "mask");
     }
-
-    /**
-     * Use regex
-     */
-    @Test(expected = IllegalArgumentException.class)
-    public void whenUseRegex() {
-        new Condition().getPredicate("[^asd]", "regex");
-    }
 }
-    
