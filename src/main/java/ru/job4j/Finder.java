@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -64,7 +65,7 @@ public class Finder {
      */
     private void writer(String output, List<Path> paths) {
         try (PrintWriter pw = new PrintWriter(new BufferedWriter(
-                new FileWriter(output, Charset.forName("WINDOWS-1251"))))) {
+                new FileWriter(output, StandardCharsets.UTF_8)))) {
             for (Path p: paths) {
                 pw.print(p + System.getProperty("line.separator"));
             }
