@@ -1,7 +1,6 @@
 package ru.job4j;
 
 import java.nio.file.Path;
-import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -34,7 +33,7 @@ public class Condition {
      * @return Предикат поиска файла по регулярному выражению.
      */
     private Predicate<Path> getRegex(String name) {
-        return Objects::isNull;
+        throw new IllegalArgumentException("REGEX NOT IMPLEMENTED");
     }
 
     /**

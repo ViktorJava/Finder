@@ -30,11 +30,11 @@ import java.util.function.Predicate;
 public class Finder {
     public static void main(String... args) {
         try {
-            Finder finder = new Finder();
             ArgsParser argsParser = ArgsParser.of(args);
             Predicate<Path> condition = new Condition().getPredicate(
                     argsParser.get("n"),
                     argsParser.get("t"));
+            Finder finder = new Finder();
             List<Path> result = finder.search(Paths.get(argsParser.get("d")), condition);
             finder.writer(argsParser.get("o"), result);
         } catch (IOException e) {

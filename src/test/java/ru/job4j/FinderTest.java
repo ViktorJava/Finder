@@ -84,6 +84,25 @@ public class FinderTest {
     }
 
     /**
+     * EndMask: dummy*First.xml
+     *
+     * @throws IOException Possible Exception.
+     */
+    @Test
+    public void whenCenterMask() throws IOException {
+        File tempFile = folder.newFile("dummyFileFirst.xml");
+        folder.newFile("dummyFileSecond.xml");
+        Path path = Paths.get(String.valueOf(folder.getRoot()));
+        Predicate<Path> condition = new Condition()
+                .getPredicate("dummy*First.xml", "mask");
+        List<Path> result = finder.search(path, condition);
+        List<Path> expected = List.of(
+                Paths.get(tempFile.getAbsolutePath())
+        );
+        assertEquals(expected, result);
+    }
+
+    /**
      * Search type: name
      *
      * @throws IOException Possible Exception.
@@ -117,6 +136,22 @@ public class FinderTest {
     @Test(expected = IllegalArgumentException.class)
     public void whenWrongMask() {
         new Condition().getPredicate("REA**DME.md", "mask");
+    }
+
+    /**
+     * WrongMask: README.md
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNotfoundMask() {
+        new Condition().getPredicate("README.md", "mask");
+    }
+
+    /**
+     * Use regex
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void whenUseRegex() {
+        new Condition().getPredicate("[^asd]", "regex");
     }
 }
     

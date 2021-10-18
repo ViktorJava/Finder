@@ -24,7 +24,7 @@ public class ArgsParser {
     public String get(String key) {
         String lKey = key.toLowerCase();
         if (!values.containsKey(lKey)) {
-            throw new IllegalArgumentException("параметра не существует: " + lKey);
+            throw new IllegalArgumentException("Notfound parameter: " + lKey);
         }
         return values.get(lKey);
     }
@@ -38,9 +38,12 @@ public class ArgsParser {
         for (String arg: args) {
             String[] split = arg.replaceFirst("-", "").split("=");
             if (split.length != 2) {
-                throw new IllegalArgumentException("неверный формат аргумента: -param=value");
+                throw new IllegalArgumentException("Invalid argument format: -param=value");
             }
             values.put(split[0].toLowerCase(), split[1]);
+        }
+        if (values.size() != 4) {
+            throw new IllegalArgumentException("Not enough arguments: -d= -n= -t= -o=");
         }
     }
 
@@ -52,7 +55,10 @@ public class ArgsParser {
      */
     public static ArgsParser of(String[] args) {
         if (args.length == 0) {
-            throw new IllegalArgumentException("список аргументов пуст");
+            System.out.print("Example: java -jar finder.jar ");
+            System.out.print("-d=directory -t=search type [name, mask, regex] ");
+            System.out.println("-n=file name -o=result file");
+            throw new IllegalArgumentException("Notfound arguments.");
         }
         ArgsParser names = new ArgsParser();
         names.parse(args);
