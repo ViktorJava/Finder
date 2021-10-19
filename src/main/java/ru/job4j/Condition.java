@@ -27,13 +27,18 @@ public class Condition {
     public static final String CONTENT_TYPE = "content";
 
     public Predicate<Path> getPredicate(String name, String type) {
-        return switch (type) {
-            case NAME_TYPE -> getName(name);
-            case MASK_TYPE -> getMask(name);
-            case REGEX_TYPE -> getRegex(name);
-            case CONTENT_TYPE -> getContent(name);
-            default -> throw new IllegalArgumentException("Неизвестный тип поиска");
-        };
+        switch (type) {
+            case NAME_TYPE:
+                return getName(name);
+            case MASK_TYPE:
+                return getMask(name);
+            case REGEX_TYPE:
+                return getRegex(name);
+            case CONTENT_TYPE:
+                return getContent(name);
+            default:
+                throw new IllegalArgumentException("Неизвестный тип поиска");
+        }
     }
 
     /**
@@ -64,13 +69,11 @@ public class Condition {
                             foundMatch = true;
                             break;
                         }
-                    }
-                    else {
+                    } else {
                         idx = 0;
                     }
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 //e.printStackTrace(); для дебага
                 return false;
             }
