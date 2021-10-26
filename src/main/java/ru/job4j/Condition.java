@@ -17,13 +17,9 @@ import java.util.regex.Pattern;
  * @since 10/16/2021
  */
 public class Condition {
-
     public static final String NAME_TYPE = "name";
-
     public static final String MASK_TYPE = "mask";
-
     public static final String REGEX_TYPE = "regex";
-
     public static final String CONTENT_TYPE = "content";
 
     public Predicate<Path> getPredicate(String name, String type) {
@@ -37,7 +33,7 @@ public class Condition {
             case CONTENT_TYPE:
                 return getContent(name);
             default:
-                throw new IllegalArgumentException("Неизвестный тип поиска");
+                throw new IllegalArgumentException("неизвестный тип поиска");
         }
     }
 
@@ -48,7 +44,6 @@ public class Condition {
      * В поиск войдут файлы, в которых содержится строка "class".
      *
      * @param substring Подстрока для поиска.
-     *
      * @return Предикат поиска файла по содержащейся в нём подстроке.
      */
     private Predicate<Path> getContent(final String substring) {
@@ -59,7 +54,8 @@ public class Condition {
             }
 
             boolean foundMatch = false;
-            try (InputStream inputStream = new BufferedInputStream(new FileInputStream(path.toFile()))) {
+            try (InputStream inputStream = new BufferedInputStream(
+                    new FileInputStream(path.toFile()))) {
                 int read;
                 int idx = 0;
                 while ((read = inputStream.read()) != -1) {
@@ -88,7 +84,6 @@ public class Condition {
      * и с расширением java.
      *
      * @param name Имя файла поиска.
-     *
      * @return Предикат поиска файла по регулярному выражению.
      */
     private Predicate<Path> getRegex(String name) {
@@ -103,7 +98,6 @@ public class Condition {
      * Метод возвращает предикат, при типе поиска по маске.
      *
      * @param name Имя файла поиска.
-     *
      * @return Предикат поиска файла по маске.
      */
     private Predicate<Path> getMask(String name) {
@@ -119,14 +113,16 @@ public class Condition {
         if (i == name.length() - 1) {
             return path -> path.toFile().getName().startsWith(left);
         }
-        return path -> path.toFile().getName().startsWith(left) && path.toFile().getName().endsWith(right);
+        return path -> path.toFile().getName().startsWith(left) && path
+                .toFile()
+                .getName()
+                .endsWith(right);
     }
 
     /**
      * Метод возвращает предикат, при типе поиска, по имени файла.
      *
      * @param name Имя файла поиска.
-     *
      * @return Предикат поиска файла по имени.
      */
     private Predicate<Path> getName(String name) {

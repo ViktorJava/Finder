@@ -22,15 +22,15 @@ public class ArgsParser {
      * @return Значение
      */
     public String get(String key) {
-        String lKey = key.toLowerCase();
-        if (!values.containsKey(lKey)) {
-            throw new IllegalArgumentException("Notfound parameter: " + lKey);
+        if (!values.containsKey(key)) {
+            throw new IllegalArgumentException("Notfound parameter: " + key);
         }
-        return values.get(lKey);
+        return values.get(key);
     }
 
     /**
      * Приватный метод, парсит массив параметров полученный в виде аргумента.
+     * Ключи регистронезависимые.
      *
      * @param args Массив параметров в формате -ключ=значение.
      */
@@ -56,8 +56,8 @@ public class ArgsParser {
     public static ArgsParser of(String[] args) {
         if (args.length == 0) {
             System.out.print("Example: java -jar finder.jar ");
-            System.out.print("-d=directory -t=search type [name, mask, regex] ");
-            System.out.println("-n=file name -o=result file");
+            System.out.print("-d=directory -t=search type [name, mask, regex, content] ");
+            System.out.println("-n=[file name, regex, mask or content] -o=result file");
             throw new IllegalArgumentException("Notfound arguments.");
         }
         ArgsParser names = new ArgsParser();
