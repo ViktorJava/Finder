@@ -6,8 +6,10 @@ import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -161,5 +163,31 @@ public class FinderTest {
     @Test(expected = IllegalArgumentException.class)
     public void whenNotfoundMask() {
         new Condition().getPredicate("README.md", "mask");
+    }
+
+    /**
+     * Search type: content
+     */
+    @Test
+    public void searchTypeContent() throws IOException {
+        List<Path> expected = new ArrayList<>();
+        File tempFile = folder.newFile("dummyFileFirst.xml");
+        Files.writeString(tempFile.toPath(), "class");
+        expected.add(tempFile.toPath());
+
+        tempFile = folder.newFile("dummyFileSecond.xml");
+        Files.writeString(tempFile.toPath(), "clazz");
+
+        tempFile = folder.newFile("dummyFileThird.xml");
+        Files.writeString(tempFile.toPath(), "aaa_class__aaa");
+        expected.add(tempFile.toPath());
+
+        folder.newFolder("dummyFolder");
+
+        Path path = Paths.get(String.valueOf(folder.getRoot()));
+        Predicate<Path> condition = new Condition().getPredicate("class", Condition.CONTENT_TYPE);
+        List<Path> result = finder.search(path, condition);
+
+        assertEquals(expected, result);
     }
 }
