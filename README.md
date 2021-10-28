@@ -2,7 +2,7 @@
 > Учебный проект поиска файлов..
 
 [![Build Status](https://app.travis-ci.com/ViktorJava/Finder.svg?branch=master)](https://app.travis-ci.com/ViktorJava/Finder)
-[![codecov](https://codecov.io/gh/ViktorJava/Finder/branch/master/graph/badge.svg?token=tt2knqhxMN)](https://codecov.io/gh/ViktorJava/Finder)
+[![codecov](https://codecov.io/gh/ViktorJava/Job4j_finder/branch/master/graph/badge.svg?token=tt2knqhxMN)](https://codecov.io/gh/ViktorJava/Job4j_finder)
 
 ## Технологии и инструменты:
 <p align="center">
