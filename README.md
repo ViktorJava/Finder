@@ -1,7 +1,7 @@
 # Проект Finder [<img alt="Logo" src="images/logo.png" height="80" align="right"/>](https://www.vectorlogo.zone)
-> Учебный проект поиска файлов..
+> Учебный проект поиска файлов...
 
-[![Build Status](https://app.travis-ci.com/ViktorJava/Finder.svg?branch=master)](https://app.travis-ci.com/ViktorJava/Finder)
+[![Build Status](https://app.travis-ci.com/ViktorJava/Job4j_finder.svg?branch=master)](https://app.travis-ci.com/ViktorJava/Job4j_finder)
 [![codecov](https://codecov.io/gh/ViktorJava/Job4j_finder/branch/master/graph/badge.svg?token=tt2knqhxMN)](https://codecov.io/gh/ViktorJava/Job4j_finder)
 
 ## Технологии и инструменты:
@@ -35,6 +35,13 @@
 `$ javac -version`
 
 Обе команды должны завершиться успешно и сообщить об одной и той же версии **Java**.
+
+`mvn --version`
+
+Команда должна завершиться успешно и сообщит версию **Maven** и другую информацию:
+- Apache Maven 3.6.3
+- Maven home: C:\Tools\apache-maven-3.6.3\bin\...
+- Java version: 14.0.1, vendor: Oracle Corporation...
 
 ## Компиляция и запуск
 Для компиляции проекта, неберите: `mvn package`
